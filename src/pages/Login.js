@@ -1,30 +1,39 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const logReq = () => {
     let tempData = {
       account: account,
       password: password,
     };
-    fetch("", {
+    fetch("http://127.0.0.1:8080/login", {
       method: "POST",
       mode: "cors",
       headers: {
-        contentType: "application/json",
+        "content-Type": "application/json",
       },
       body: JSON.stringify(tempData),
     })
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
+        if (json.code === 200) {
+          if (json.user) {
+            sessionStorage.setItem("user", json.user);
+            navigate(`/home`);
+            return;
+          } else if (json.msg) {
+            throw new Error(json.msg);
+          }
+        } else throw new Error("network err");
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
   };
   return (

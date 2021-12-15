@@ -1,31 +1,42 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [conPassword,setConPassword] = useState("");
-  
+  const [conPassword, setConPassword] = useState("");
+  const navigate = useNavigate();
+
   const logReq = () => {
+    if (password !== conPassword) {
+      alert("input error!");
+      return;
+    }
     let tempData = {
       account: account,
       password: password,
     };
-    fetch("", {
+    fetch("http://127.0.0.1:8080/register", {
       method: "POST",
       mode: "cors",
       headers: {
-        contentType: "application/json",
+        "content-Type": "application/json",
       },
       body: JSON.stringify(tempData),
     })
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
+        if (json.code == 200) {
+          if (json.msg) throw new Error(json.msg);
+          else if (json.id) {
+            navigate(`/login`);
+          }
+        }
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
   };
   return (
