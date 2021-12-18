@@ -6,12 +6,12 @@ const Login = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const logReq = () => {
+  const logReq = async() => {
     let tempData = {
       account: account,
       password: password,
     };
-    fetch("http://127.0.0.1:8080/login", {
+   await fetch("http://127.0.0.1:8080/login", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -51,6 +51,7 @@ const Login = () => {
             className={styles.input}
             placeholder="Password"
             value={password}
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <Link className={styles.regBtn} to={`/register`}>Register</Link>

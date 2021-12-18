@@ -8,7 +8,7 @@ const Register = () => {
   const [conPassword, setConPassword] = useState("");
   const navigate = useNavigate();
 
-  const logReq = () => {
+  const logReq = async () => {
     if (password !== conPassword) {
       alert("input error!");
       return;
@@ -17,7 +17,7 @@ const Register = () => {
       account: account,
       password: password,
     };
-    fetch("http://127.0.0.1:8080/register", {
+    await fetch("http://127.0.0.1:8080/register", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -28,7 +28,7 @@ const Register = () => {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        if (json.code == 200) {
+        if (json.code === 200) {
           if (json.msg) throw new Error(json.msg);
           else if (json.id) {
             navigate(`/login`);
@@ -53,11 +53,13 @@ const Register = () => {
           <input
             className={styles.input}
             placeholder="Password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
             className={styles.input}
+            type="password"
             placeholder="Confirm Your Password"
             value={conPassword}
             onChange={(e) => setConPassword(e.target.value)}
