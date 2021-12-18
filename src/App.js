@@ -6,13 +6,14 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Error from "./pages/Error";
 import Upload from "./pages/Upload";
-import Check from "./components/Check";
-
+import Check from "./components/Check"; 
+import Detail from "./pages/Detail";
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Check />} />
       <Route path="home" element={<Home />} />
+      <Route path="detail/:data" element={<Detail />} />
       <Route path="login" element={<Login />} />
       <Route path="upload" element={<Upload />} />
       <Route path="register" element={<Register />} />

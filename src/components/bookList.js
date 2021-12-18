@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./bookList.module.css";
+import { Link } from "react-router-dom";
 
 const bookList = () => {
   const creDate = new Date().toString();
@@ -118,11 +119,13 @@ const bookList = () => {
             return (
               <li className={styles.listItem} key={item.id}>
                 <div className={styles.listContent}>
-                  <img
-                    className={styles.itemCover}
-                    src={item.image}
-                    alt={item.bookName}
-                  />
+                  <Link state={JSON.stringify(item)} to={"/detail/" + item.id}>
+                    <img
+                      className={styles.itemCover}
+                      src={item.image}
+                      alt={item.bookName}
+                    />
+                  </Link>
                   <h3>Book's Name: {item.bookName}</h3>
                   <h4>Book ID: {item.id}</h4>
                   <span>Author: {item.author}</span>
