@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+# How to start
+
+## First, install modules
+<code>npm install</code> or <code> yarn install </code>
+## Then run this app with NodeJS installed
+<code>npm run start</code> or <code> yarn start</code>
+
+
+# What's more
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
